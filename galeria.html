@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galéria script generáló</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      textarea {
+        width: 100%;
+        height: 300px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Képes galéria script generáló</h1>
+    <input type="file" id="imageFiles" multiple accept="image/*" /><br /><br />
+    <input
+      type="text"
+      id="folderDate"
+      placeholder="Külső mappa neve (2025_04)"
+    /><br /><br />
+    <input
+      type="text"
+      id="subFolder"
+      placeholder="Belső mappa neve (Alma)"
+    /><br /><br />
+    <input type="text" id="imageTitle" placeholder="Képcím" /><br /><br />
+    <button onclick="generateHTML()">HTML kód generálása</button>
+
+    <textarea id="output" readonly></textarea>
+
+    <script>
+      function generateHTML() {
+        const files = document.getElementById("imageFiles").files;
+        const folderDate = document.getElementById("folderDate").value;
+        const subFolder = document.getElementById("subFolder").value;
+        const title = document.getElementById("imageTitle").value;
+        const output = document.getElementById("output");
+
+        let html = '<div id="cntsld1" class="awe_cntsld">\n';
+        html +=
+          '<div class="awe_cntsld_screen_wrap">\n<div class="awe_cntsld_screen"> </div>\n<div class="awe_cntsld_navi navi_left"> </div>\n<div class="awe_cntsld_navi navi_right"> </div>\n</div>\n';
+        html +=
+          '<div class="awe_cntsld_thumb_wrap" style="text-align: center;">\n';
+
+        for (const file of files) {
+          const fileName = file.name;
+          html += `<img title="${title}" src="/images/News/${folderDate}/${subFolder}/${fileName}" alt="${title}" width="2048" height="1365" />\n`;
+        }
+
+        html += "</div>";
+        output.value = html;
+      }
+    </script>
+  </body>
+</html>
